@@ -1,0 +1,14 @@
+{
+  "name": "ciapp",
+  "version": "1.0.0",
+  "description": "Codeigniter 3 and Ioan Auth Registration App with User Profiles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Razvan Zamfir",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.2"
+  }
+}

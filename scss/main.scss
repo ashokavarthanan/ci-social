@@ -1,0 +1,35 @@
+$theme-colors: (
+	"primary": #007de1,
+	"secondary": #6d7780,
+  "danger": #e43f50,
+  "success": #2a9e6c,
+	"info": #00BCD4,
+	"warning": #ffd000,
+);
+
+//Navigation
+$nav-link-padding-y: .25rem;
+
+//Forms
+$label-margin-bottom: 0.125rem;
+$form-group-margin-bottom: 0.75rem;
+
+/* Bootstrap */
+@import 'vendor/bootstrap.scss';
+
+
+#siteWrapper {
+	min-height: 100vh;
+}
+
+.card.shadow-sm {
+	overflow: hidden;
+}
+
+#infoMessage {
+	p {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
