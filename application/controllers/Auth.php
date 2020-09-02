@@ -510,14 +510,14 @@ class Auth extends CI_Controller
 			$config['max_size']             = 1024;
 			$config['max_width']            = 1024;
 			$config['max_height']           = 1024;
-			$config['encrypt_name']         = TRUE;
+			$config['encrypt_name']        	= TRUE;
 			$this->load->library('upload', $config);
 
 			if (!$this->upload->do_upload('userfile')){
 				$error = array('error' => $this->upload->display_errors());
 				$file_name = null;
 			} else {
-				$file_name = $_FILES['userfile']['encrypted_name'];
+				$file_name = $_FILES['userfile']['name'];
 			}
 
 			$additional_data = [
@@ -657,7 +657,7 @@ class Auth extends CI_Controller
 				$data = [
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
-					'avatar' => $_FILES['userfile']['encrypted_name'],
+					'avatar' => $_FILES['userfile']['name'],
 					'company' => $this->input->post('company'),
 					'phone' => $this->input->post('phone'),
 				];
