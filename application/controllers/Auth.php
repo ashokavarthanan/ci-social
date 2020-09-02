@@ -461,24 +461,6 @@ class Auth extends CI_Controller
 		}
 	}
 
-	/** 
-	 * Upload avatar
-	 */
-	public function upload_image() {
-		$config['upload_path'] = './assets/img/avatars';
-		$config['allowed_types'] = 'jpg|jpeg|png';
-		$config['max_size'] = 2048;
-	
-		$this->load->library('upload', $config);
-	
-		if (!$this->upload->do_upload('userfile')) {
-			$error = array('error' => $this->upload->display_errors());
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $error);
-		} else {
-			$this->data = array('image_metadata' => $this->upload->data());
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
-		}
-	}
 	/**
 	 * Create a new user
 	 */
@@ -522,10 +504,25 @@ class Auth extends CI_Controller
 			$identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
 			$password = $this->input->post('password');
 
+			$config['upload_path'] = './assets/img/avatars';
+			$config['file_ext_tolower']     = TRUE;
+			$config['allowed_types']        = 'gif|jpg|png';
+			$config['max_size']             = 100;
+			$config['max_width']            = 1024;
+			$config['max_height']           = 768;
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('userfile')){
+				$error = array('error' => $this->upload->display_errors());
+				$file_name = null;
+			} else {
+				$file_name = $_FILES['userfile']['name'];
+			}
+
 			$additional_data = [
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
-				'avatar' => $_FILES['userfile']['name'],
+				'avatar' =>  $file_name,
 				'company' => $this->input->post('company'),
 				'phone' => $this->input->post('phone'),
 			];
@@ -659,7 +656,7 @@ class Auth extends CI_Controller
 				$data = [
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
-					'avatar' => $this->upload->data('file_name'),
+					'avatar' => $_FILES['userfile']['name'],
 					'company' => $this->input->post('company'),
 					'phone' => $this->input->post('phone'),
 				];
