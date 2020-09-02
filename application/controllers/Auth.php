@@ -517,7 +517,7 @@ class Auth extends CI_Controller
 				$error = array('error' => $this->upload->display_errors());
 				$file_name = null;
 			} else {
-				$file_name = $_FILES['userfile']['name'];
+				$file_name = $this->upload->data('file_name');
 			}
 
 			$additional_data = [
